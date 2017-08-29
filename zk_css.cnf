@@ -1,0 +1,62 @@
+[test1]
+host = 192.168.1.126
+port = 3306
+db_name = test
+user = root
+password = python123
+
+
+[data]
+host = 192.168.1.126
+port = 3306
+db_name = db_data_20170524164100
+user = root
+password = python123
+
+
+[metadata]
+host = 192.168.1.126
+port = 3306
+db_name = db_metadata
+user = root
+password = python123
+
+
+
+[user]
+host = 192.168.1.126
+port = 3306
+db_name = db_user
+user = root
+password = python123
+
+
+[test_analysis]
+host = 123.57.145.24
+port = 3306
+db_name = anadata
+user = analy
+password = Wp-123456
+
+# 日志路径
+[log]
+logpath = /opt/code/my_code/zk_css/cgss.log
+
+
+# 注意这里要写绝对路径
+# 是目录的总路径
+[filepath]
+# upload_path = /opt/code/my_code/zk_css/file/up
+upload_path = /data/zk_css
+
+download_path = /opt/code/my_code/zk_css/file/down
+
+# 索引文件路径,注意要有
+[indexFilePath]
+# filepath = /opt/code/my_code/zk_css
+filepath = /data/index
+
+
+# 验证tokenid和userid是否正确
+[isToken]
+before_url= http://192.168.1.141:57511/api/Login/ExistsLogin
