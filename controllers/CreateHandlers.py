@@ -10,7 +10,7 @@ from tornado.concurrent import run_on_executor
 
 
 class myTest(BaseHandler):
-    executor = ThreadPoolExecutor(2)
+    # executor = ThreadPoolExecutor(2)
 
     def set_default_headers(self):
         self.set_header("Access-Control-Allow-Origin", "*")
