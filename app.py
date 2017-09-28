@@ -6,8 +6,8 @@ import tornado.web
 import os
 from tornado.httpserver import HTTPServer
 from tornado.options import define, options
-from controllers.home_handlers import My404, write_error
-from common.util.include_url_model import url_wrapper, include
+from controllers.HomeHandlers import My404, write_error
+from common.util.IncludeUrl import url_wrapper, include
 
 define("port", default=8002, type=int)
 _ROOT_PATH = os.path.dirname(__file__)

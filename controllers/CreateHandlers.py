@@ -1,15 +1,15 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 import json
-from controllers.home_handlers import BaseHandler
+from controllers.HomeHandlers import BaseHandler
 from tornado.web import RequestHandler
-from common.base import result, MyGuid, my_datetime, Config, my_log
+from common.Base import result, MyGuid, my_datetime, Config, my_log
 from concurrent.futures import ThreadPoolExecutor
 from tornado.concurrent import run_on_executor
 
 
 
-class myTest(BaseHandler):
+class MyTestHandler(BaseHandler):
     # executor = ThreadPoolExecutor(2)
 
     def set_default_headers(self):

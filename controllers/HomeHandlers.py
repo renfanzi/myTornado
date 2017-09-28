@@ -1,14 +1,10 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 import tornado.web
-import requests
-from common.base import Config
-import json
+import requests, json
+from common.Base import Config
 from urllib.parse import unquote
-
 import tornado.ioloop
-import tornado.web
-
 import traceback
 from concurrent.futures import ThreadPoolExecutor
 from functools import partial
@@ -37,6 +33,7 @@ def write_error(self, stat, **kw):
 # 数据服务基类,其他服务均继承自此类
 # 封装子接口公用的方法
 class BaseHandler(tornado.web.RequestHandler):
+
     @tornado.web.asynchronous
     def asynchronous_get(self, default=None):
         """异步请求，子类在get方法中调用此方法，然后实现_get(self)方法
@@ -82,3 +79,8 @@ class BaseHandler(tornado.web.RequestHandler):
     # write result to reaponse
     def write_result(self, result):
         self.write(result)
+
+
+    # 备注：钩子函数不能像django一样遇到错误终止--需改进
+    def initialize(self):
+        pass

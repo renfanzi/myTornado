@@ -6,7 +6,7 @@ from whoosh.filedb.filestore import FileStorage
 from whoosh.index import exists_in, open_dir
 from whoosh.qparser import QueryParser
 from whoosh.qparser import MultifieldParser
-from common.base import Config
+from common.Base import Config
 from models.ProjectModel import SelectDataTablesInfo
 
 def selectApp(clientContent, quesID=False, indexflag=2):

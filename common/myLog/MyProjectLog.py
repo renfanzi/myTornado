@@ -11,8 +11,8 @@ class Logger(logging.Logger):
     # my_log = Logger()
     #
     # # 输出日志
-    # # log.info("日志模块消息!")
-    # # log.debug("日志模块调试消息!")
+    # # myLog.info("日志模块消息!")
+    # # myLog.debug("日志模块调试消息!")
     # my_log.error("日志模块错误消息!")
     """
 
@@ -20,7 +20,7 @@ class Logger(logging.Logger):
         super(Logger, self).__init__(self)
         # 日志文件名
         if filename is None:
-            filename = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "zk_css.log")
+            filename = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "myProjectLog.log")
         self.filename = filename
 
         # 创建一个handler，用于写入日志文件 (每天生成1个，保留30天的日志)

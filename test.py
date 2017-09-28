@@ -3,5 +3,6 @@
 
 
 import requests
-ret = requests.post("http://127.0.0.1:8002/index")
+# ret = requests.get("http://127.0.0.1:8002/index?a=1", )
+ret = requests.get("http://127.0.0.1:8888/index?a=1", )
 print(ret.text)

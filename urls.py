@@ -2,12 +2,12 @@
 # -*- coding:utf-8 -*-
 
 
-
-from controllers.CreateHandlers import  myTest
-
-urls = [
-
-    (r'/index', myTest),
+from controllers.CreateHandlers import  MyTestHandler
 
 
-]
+urls = list()
+
+testUrls = [(r'/index', MyTestHandler),]
+
+urls += testUrls
+

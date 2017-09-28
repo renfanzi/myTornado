@@ -17,7 +17,7 @@ class Config(object):
     """
     # Config().get_content("user_information")
     """
-    def __init__(self, config_filename="zk_css.cnf"):
+    def __init__(self, config_filename="myProjectConfig.cnf"):
         file_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), config_filename)
         self.cf = configparser.ConfigParser()
         self.cf.read(file_path)
@@ -60,7 +60,7 @@ class MyPymysql(base_pymysql):
         print(res)
         ret.close()
     Precautions:
-        Config.__init__(self, config_filename="zk_css.cnf")
+        Config.__init__(self, config_filename="myProjectConfig.cnf")
     """
 
     def __init__(self, conf_name):

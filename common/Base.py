@@ -8,7 +8,7 @@ import time
 import pymongo
 # import MySQLdb
 import pymysql
-from common.log.loger import Logger
+from common.myLog.MyProjectLog import Logger
 import datetime, time, uuid, re
 
 
@@ -17,7 +17,7 @@ class Config(object):
     # Config().get_content("user_information")
     """
 
-    def __init__(self, config_filename="zk_css.cnf"):
+    def __init__(self, config_filename="myProjectConfig.cnf"):
         file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), config_filename)
         self.cf = configparser.ConfigParser()
         self.cf.read(file_path)
@@ -101,7 +101,7 @@ class MyPymysql(base_pymysql):
                 self.res.close()
 
     Precautions:
-        Config.__init__(self, config_filename="zk_css.cnf")
+        Config.__init__(self, config_filename="myProjectConfig.cnf")
 
     """
 
@@ -298,7 +298,7 @@ def MyGuid():
     return ret
 
 try:
-    logpath = Config().get_content("log")["logpath"]
+    logpath = Config().get_content("myLog")["logpath"]
 except Exception as e:
     logpath = ""
 if os.path.exists(logpath):
