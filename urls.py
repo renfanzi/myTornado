@@ -2,12 +2,14 @@
 # -*- coding:utf-8 -*-
 
 
-from controllers.CreateHandlers import  MyTestHandler
-
+from controllers.CreateHandlers import MyTestHandler, CreateProjectHandler
 
 urls = list()
 
-testUrls = [(r'/index', MyTestHandler),]
+testUrls = [(r'/index', MyTestHandler), ]
 
-urls += testUrls
+createUrls = [
+    (r'/CreateProject', CreateProjectHandler),
+]
 
+urls += testUrls + createUrls

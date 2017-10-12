@@ -33,7 +33,6 @@ def write_error(self, stat, **kw):
 # 数据服务基类,其他服务均继承自此类
 # 封装子接口公用的方法
 class BaseHandler(tornado.web.RequestHandler):
-
     @tornado.web.asynchronous
     def asynchronous_get(self, default=None):
         """异步请求，子类在get方法中调用此方法，然后实现_get(self)方法
@@ -64,7 +63,7 @@ class BaseHandler(tornado.web.RequestHandler):
                 self.write_result(future.result())
             self.finish()
 
-        return_future = EXECUTOR.submit(self.nomalization_post())
+        return_future = EXECUTOR.submit(self.nomalization_post)
         return_future.add_done_callback(
             lambda future: tornado.ioloop.IOLoop.instance().add_callback(
                 partial(callback, future)))
@@ -80,7 +79,38 @@ class BaseHandler(tornado.web.RequestHandler):
     def write_result(self, result):
         self.write(result)
 
-
     # 备注：钩子函数不能像django一样遇到错误终止--需改进
     def initialize(self):
         pass
+
+
+class initializeBaseRequestHandler(BaseHandler):
+    def set_default_headers(self):
+        self.set_header("Access-Control-Allow-Origin", "*")
+        self.set_header("Access-Control-Allow-Headers", "x-requested-with")
+        self.set_header('Access-Control-Allow-Methods', 'POST, GET, OPTIONS')
+
+    def initialize(self):
+        self.verifyFlag = 0
+        self.status = 1
+        myUserId = self.get_argument('UserID')
+        myTokenId = self.get_argument('TokenID')
+
+        try:
+            if all(myUserId and myTokenId):
+                self.verifyFlag = 1
+                try:
+                    self.UserId = myUserId
+                    self.TokenId = myTokenId
+                    # print(self.UserId)
+                    # print(self.TokenId)
+                    URL = Config().get_content("isToken")["before_url"]
+                    ret = requests.post(URL, data={"TokenId": self.TokenId, "UserId": self.UserId})
+                    result = ret.text
+                    # print(result)
+                    self.status = json.loads(result)["status"]
+                    # print(self.status)
+                except Exception as e:
+                    self.status = 1
+        except:
+            self.status = 1

@@ -1,12 +1,8 @@
 #!/usr/bin/env python
 # -*- coding:utf-8 -*-
 import json
-from controllers.HomeHandlers import BaseHandler
-from tornado.web import RequestHandler
+from controllers.HomeHandlers import BaseHandler, initializeBaseRequestHandler
 from common.Base import result, MyGuid, my_datetime, Config, my_log
-from concurrent.futures import ThreadPoolExecutor
-from tornado.concurrent import run_on_executor
-
 
 
 class MyTestHandler(BaseHandler):
@@ -21,7 +17,6 @@ class MyTestHandler(BaseHandler):
         self.asynchronous_get()
 
     def _get(self):
-
         user = self.get_argument('user', None)
         print("get", user)
         ret = json.dumps(result(status=2000, value="hello world!"))
@@ -35,3 +30,17 @@ class MyTestHandler(BaseHandler):
         print("post", user)
         ret = json.dumps(result(status=2000, value="hello world!"))
         return ret
+
+
+class CreateProjectHandler(initializeBaseRequestHandler):
+    def post(self, *args, **kwargs):
+        self.asynchronous_post()
+
+    def _post(self):
+        if self.verifyFlag == 1 and self.status == 0:
+            return json.dumps(result(status=2000, value="hello world!"))
+        else:
+            return self.noLogin()
+
+    def noLogin(self):
+        return json.dumps(result(status=4005))
