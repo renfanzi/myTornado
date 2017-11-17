@@ -17,7 +17,7 @@ class Config(object):
     # Config().get_content("user_information")
     """
 
-    def __init__(self, config_filename="myProjectConfig.cnf"):
+    def __init__(self, config_filename="my.cnf"):
         file_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), config_filename)
         self.cf = configparser.ConfigParser()
         self.cf.read(file_path)
@@ -61,7 +61,7 @@ class MongoDb(object):
 
 
 class base_pymysql(object):
-    def __init__(self, host, port, user, password, db_name):
+    def __init__(self, host, port, user, password, db_name=None):
         self.db_host = host
         self.db_port = int(port)
         self.user = user
@@ -101,7 +101,7 @@ class MyPymysql(base_pymysql):
                 self.res.close()
 
     Precautions:
-        Config.__init__(self, config_filename="myProjectConfig.cnf")
+        Config.__init__(self, config_filename="my.cnf")
 
     """
 

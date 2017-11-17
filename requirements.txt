@@ -18,3 +18,11 @@ jieba
 sqlalchemy
 
 pymongo
+
+xlrd
+
+pandas
+
+patsy
+
+scipy==0.18.1

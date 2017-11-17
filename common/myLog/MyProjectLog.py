@@ -20,7 +20,10 @@ class Logger(logging.Logger):
         super(Logger, self).__init__(self)
         # 日志文件名
         if filename is None:
-            filename = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "myProjectLog.log")
+            filename = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "myProject.log")
+        else:
+            if not os.path.exists(filename):
+                os.makedirs(filename)
         self.filename = filename
 
         # 创建一个handler，用于写入日志文件 (每天生成1个，保留30天的日志)
