@@ -11,11 +11,12 @@ from common.mySeacher.myWhoosh.addIndex import incremental_index
 
 analyzer = ChineseAnalyzer()
 
-
 """
     创建索引文件系统
 """
-def CreateIndexFilesPattern(indexname, schema, indexdir, columnName):
+
+
+def CreateIndexFilesPattern(indexname, schema, indexdir, columnName, uniqueValue):
     """
         注意， 如果更新数据，在创建和添加的时候， 某个字段必须唯一， 才OK， 同是在更新的时候， 也要有那个唯一字段
         :param columnName: 是给Schema用的， 数据是数据库的字段， 只是列的字段名
@@ -25,9 +26,14 @@ def CreateIndexFilesPattern(indexname, schema, indexdir, columnName):
         :return:
         """
     # keys = {"ID": "abc", "content": "撸啊撸啊德玛西亚"}  # 表示从数据库得到的模拟数据
+
+    """
+        # ID(stored=True, unique=True)
+        unique:  的作用表示唯一值， 由于update的原因， 所以这里某个值要求唯一，否则将会出现两条数据 
+    """
     s = "Schema("
     for key in columnName:
-        if key == "LogID":
+        if key == uniqueValue:
             s += key.replace('\n', '').replace('/r', '').replace('\t', '').replace(' ',
                                                                                    '') + '=ID(stored=True, unique=True), '
         else:
@@ -43,7 +49,6 @@ def CreateIndexFilesPattern(indexname, schema, indexdir, columnName):
         os.mkdir(indexdir)
 
     create_in(indexdir, schema=schema, indexname=indexname)  # from whoosh.index import create_in 创建索引文件
-
 
 
 def parse_db(indexname, schema, indexdir, columnName, rowData):
@@ -114,9 +119,11 @@ def app():
     """
     tableNameList = ["logProject", "logQuest"]
     dataBaseList = ["db_metadata", "db_metadata"]
+    uniqueValueList = ["logProjectID", "logQuestID"]
     for i in range(len(tableNameList)):
         tableName = tableNameList[i]
         dataBase = dataBaseList[i]
+        uniqueValue = uniqueValueList[i]
         columnName = []
         sql = "select COLUMN_NAME as columnName from information_schema.COLUMNS where table_name = '{}' and table_schema = '{}';".format(
             tableName,
@@ -131,12 +138,12 @@ def app():
 
         print(columnName)
 
-
         indexDirectory = "indexdir"
         if not os.path.exists(indexDirectory):
             os.makedirs(indexDirectory)
         dbname = tableName
-        CreateIndexFilesPattern(indexname=dbname, schema="", indexdir=indexDirectory, columnName=columnName)
+        CreateIndexFilesPattern(indexname=dbname, schema="", indexdir=indexDirectory, columnName=columnName,
+                                uniqueValue=uniqueValue)
         for rowData in data:
             incremental_index(indexdir=indexDirectory, indexname=dbname, rowData=rowData)
             """

@@ -7,10 +7,10 @@ from whoosh.writing import AsyncWriter
 from decimal import Decimal
 import pymysql
 
-
 """
     添加索引数据
 """
+
 
 def incremental_index(indexdir, indexname, rowData):
     """
@@ -50,4 +50,4 @@ def incremental_index(indexdir, indexname, rowData):
 if __name__ == '__main__':
     indexname = "test"
     indexdir = "indexdir"
-    incremental_index(indexdir, indexname)
+    incremental_index(indexdir, indexname, {})
