@@ -298,7 +298,7 @@ def MyGuid():
     return ret
 
 try:
-    logpath = Config().get_content("myLog")["logpath"]
+    logpath = Config().get_content("log")["logpath"]
 except Exception as e:
     logpath = ""
 if os.path.exists(logpath):
