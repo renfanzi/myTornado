@@ -298,10 +298,11 @@ def MyGuid():
     return ret
 
 try:
-    logpath = Config().get_content("log")["logpath"]
+    logDict = Config().get_content("log")
+    logPath = logDict['logpath']
+    logName = logDict['logname']
+
 except Exception as e:
-    logpath = ""
-if os.path.exists(logpath):
-    my_log = Logger(filename=logpath)
-else:
-    my_log = Logger()
+    logPath = None
+    logName = None
+my_log = Logger(filepath=logPath, filename=logName)
