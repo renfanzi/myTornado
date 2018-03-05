@@ -16,15 +16,20 @@ class Logger(logging.Logger):
     # my_log.error("日志模块错误消息!")
     """
 
-    def __init__(self, filename=None):
+    def __init__(self, filepath=None, filename="myProject.log"):
         super(Logger, self).__init__(self)
         # 日志文件名
-        if filename is None:
-            filename = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "myProject.log")
+
+        if not filepath:
+            filepath = os.path.dirname(os.path.dirname(os.path.dirname(__file__)))
         else:
-            if not os.path.exists(filename):
-                os.makedirs(filename)
-        self.filename = filename
+            if not os.path.exists(filepath):
+                os.makedirs(filepath)
+        if filepath[-1] == '/':
+            filepathname = filepath + filename
+        else:
+            filepathname = filepath + '/' + filename
+        self.filename = filepathname
 
         # 创建一个handler，用于写入日志文件 (每天生成1个，保留30天的日志)
         # fh = logging.handlers.TimedRotatingFileHandler(self.filename, 'D', 1, 5)
